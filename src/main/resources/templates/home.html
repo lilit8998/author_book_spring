@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" xmlns:th="https://www.thymeleaf.org" >
+    <title>Home</title>
+</head>
+<body>
+<a href="/about">About</a>
+Search:<form action="/search" method="get">
+    <input type="text" name="keyword">
+    <input type="submit" value="search">
+</form>
+<a href="/book/save">Add New Book</a> | <a href="/author/save">Add New Author</a>
+<table border="1">
+    <thead>
+
+    <tr>
+        <td>id</td>
+        <td>title</td>
+        <td>description</td>
+        <td>price</td>
+        <td>author</td>
+        <td>action</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book: ${book}">
+        <td th:text="${book.id}"></td>
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.description}"></td>
+        <td th:text="${book.price}"></td>
+        <td> <img th:src="@{/author/image(photoUrl=${book.author.photoUrl})}" width="20">
+        <span th:text="${book.author.name}"></span>
+        </td>
+        <td>
+            <a th:href="@{/book/save/(id=${book.id})}">Edit</a> | <a th:href="@{/book/delete/(id=${book.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
